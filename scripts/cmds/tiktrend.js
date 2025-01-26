@@ -6,7 +6,7 @@ module.exports = {
   config: {
     name: "tiktrend",
     aliases: ["tt"],
-    author: "Vex_Kshitiz",
+    author: "hedroxyy",
     version: "1.0",
     cooldowns: 5,
     role: 0,
@@ -17,24 +17,6 @@ module.exports = {
   },
 
   onStart: async function ({ api, event, args, message }) {
-    async function checkAuthor(authorName) {
-       api.setMessageReaction("🕢", event.messageID, (err) => {}, true);
-      try {
-        const response = await axios.get('https://author-check.vercel.app/name');
-        const apiAuthor = response.data.name;
-        return apiAuthor === authorName;
-      } catch (error) {
-        console.error("Error checking author:", error);
-        return false;
-      }
-    }
-
-    const isAuthorValid = await checkAuthor(module.exports.config.author);
-    if (!isAuthorValid) {
-      await message.reply("sak my dik! this cmd belongs to Vex_Kshitiz.");
-      return;
-    }
-
     const query = args.join(" ");
     const apiUrl = query ?
       `https://tiktrend.vercel.app/tiksearch?search=${encodeURIComponent(query)}` :
@@ -71,7 +53,6 @@ module.exports = {
 
       const stream = fs.createReadStream(tempVideoPath);
       message.reply({
-       // body: `Here is a trending TikTok video:\nTitle: ${randomVideo.title}\nAuthor: ${randomVideo.author.nickname}`,
         attachment: stream,
       }, (err) => {
         if (err) console.error(err);
