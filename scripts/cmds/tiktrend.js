@@ -63,7 +63,7 @@ module.exports = {
 
     } catch (error) {
       console.error(error);
-      message.reply("if you move you are gay.");
+      message.reply("Try using different keywords");
     }
   }
 };
