@@ -3,18 +3,18 @@ const fs = require('fs');
 module.exports = {
   config: {
     name: "antiadmin",
-    version: "1.2",
-    author: "hedroxyy",
+    version: "1.4",
+    author: "Hedroxyy",
     countDown: 5,
     role: 1,
-    shortDescription: "Keep only you as admin",
-    longDescription: "Automatically removes all other admins in the group except for you. If the bot or you are removed as admin, it ensures your status is restored.",
+    shortDescription: "Restore admin and remove others",
+    longDescription: "Automatically restores your admin rights and removes all other admins if someone removes you from the admin role.",
     category: "box",
     guide: "",
   },
 
   onStart: async function ({ message }) {
-    message.reply("Anti-admin module is active and running.");
+    message.reply("Anti-admin module is active and monitoring your admin status.");
   },
 
   onEvent: async function ({ api, event }) {
@@ -25,9 +25,11 @@ module.exports = {
       return;
     }
 
-    const { ADMIN_EVENT } = event.logMessageData;
-    if (ADMIN_EVENT === "add_admin" || ADMIN_EVENT === "remove_admin") {
+    const { ADMIN_EVENT, TARGET_ID } = event.logMessageData;
+
+    if (ADMIN_EVENT === "remove_admin" && TARGET_ID === ownerID) {
       try {
+        await api.changeAdminStatus(event.threadID, ownerID, true);
         const threadInfo = await api.getThreadInfo(event.threadID);
         const admins = threadInfo.adminIDs.map((admin) => admin.id);
 
@@ -36,13 +38,8 @@ module.exports = {
             await api.changeAdminStatus(event.threadID, adminID, false);
           }
         }
-
-        const ownerIsAdmin = admins.includes(ownerID);
-        if (!ownerIsAdmin) {
-          await api.changeAdminStatus(event.threadID, ownerID, true);
-        }
       } catch (err) {
-        console.error("Error while processing admin status:", err);
+        console.error("Error while restoring admin status and removing others:", err);
       }
     }
   },
