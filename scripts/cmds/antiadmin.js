@@ -13,6 +13,10 @@ module.exports = {
     guide: "",
   },
 
+  onStart: async function ({ message }) {
+    message.reply("Anti-admin module is active and running.");
+  },
+
   onEvent: async function ({ api, event }) {
     const currentUserID = api.getCurrentUserID();
     const ownerID = "61559819588542";
