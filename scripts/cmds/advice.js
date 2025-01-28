@@ -5,7 +5,7 @@ module.exports = {
     name: "advice",
     version: "1.0.0",
     aliases: ["getAdvice"],
-    author: "YourName",
+    author: "hedroxyy",
     role: 0,
     category: "Utility",
     description: "Fetches a random piece of advice.",
