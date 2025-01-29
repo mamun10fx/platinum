@@ -1,4 +1,3 @@
-
 const axios = require('axios');
 
 module.exports = {
@@ -7,28 +6,29 @@ module.exports = {
     version: "1.0",
     aliases: ["g", "gem"],
     author: "hedroxyy",
-    role: 0, 
+    role: 0,
     category: "Utilities",
     description: "Sends a prompt to the Gemini API and retrieves a response.",
     guide: {
       vi: "Gửi một câu lệnh tới API Gemini và nhận phản hồi.",
-      en: "Sends a prompt to the Gemini API and retrieves a response."            
+      en: "Sends a prompt to the Gemini API and retrieves a response."
     }
   },
 
   onStart: async function ({ api, message, event, args, commandName }) {
     const prompt = args.join(" ");
+    const uid = event.senderID;
+
     if (!prompt) {
       return message.reply("Please provide a prompt.");
     }
 
     try {
-      const response = await axios.get(`https://gemini-j43h.onrender.com/prompt=${encodeURIComponent(prompt)}`);
+      const response = await axios.get(`https://gemini-j43h.onrender.com/prompt=${encodeURIComponent(prompt)}&uid=${uid}`);
       const data = response.data;
 
-      if (data.candidates && data.candidates.length > 0) {
-        const outputText = data.candidates[0].content.parts[0].text;
-        message.reply(outputText, (err, info) => {
+      if (data.response) {
+        message.reply(data.response, (err, info) => {
           if (!err) {
             global.GoatBot.onReply.set(info.messageID, {
               commandName,
@@ -50,17 +50,17 @@ module.exports = {
 
   onReply: async function ({ api, message, event, Reply, args }) {
     const prompt = args.join(" ");
+    const uid = event.senderID;
     let { author, commandName } = Reply;
 
     if (event.senderID !== author) return;
 
     try {
-      const response = await axios.get(`https://gemini-j43h.onrender.com/prompt=${encodeURIComponent(prompt)}`);
+      const response = await axios.get(`https://gemini-j43h.onrender.com/prompt=${encodeURIComponent(prompt)}&uid=${uid}`);
       const data = response.data;
 
-      if (data.candidates && data.candidates.length > 0) {
-        const outputText = data.candidates[0].content.parts[0].text;
-        message.reply(outputText, (err, info) => {
+      if (data.response) {
+        message.reply(data.response, (err, info) => {
           if (!err) {
             global.GoatBot.onReply.set(info.messageID, {
               commandName,
