@@ -1,9 +1,9 @@
 {
   "facebookAccount": {
-    "email": "criminal_ghost@proton.me",
-    "password": "Ghost.¹",
+    "email": "",
+    "password": "",
     "2FASecret": "",
-    "i_user": "61550553240301",
+    "i_user": "",
     "proxy": null,
     "userAgent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Mobile Safari/537.36",
     "intervalGetNewCookie": 1440,
@@ -12,18 +12,18 @@
   "antiInbox": false,
   "language": "en",
   "notesLanguage": "change to your language with ISO 639-1 code, available languages: vi (Vietnamese), en (English)",
-  "nickNameBot": "Platinum ✨",
+  "nickNameBot": "BOT",
   "prefix": ".",
   "adminOnly": {
     "enable": false,
     "ignoreCommand": []
   },
   "adminBot": [
-    "61550553240301","100046226001757"
+    "61559819588542"
   ],
   "whiteListMode": {
-    "enable": true,
-    "whiteListIds": ["61550553240301","100046226001757"],
+    "enable": false,
+    "whiteListIds": [""],
     "notes": "if you enable this feature, only the ids in the whiteListIds list can use the bot"
   },
   "whiteListModeThread": {
@@ -33,8 +33,8 @@
     "how_it_work": "if you enable both whiteListMode and whiteListModeThread, the system will check if the user is in whiteListIds, then check if the thread is in whiteListThreadIds, if one of the conditions is true, the user can use the bot"
   },
   "database": {
-    "type": "mongodb",
-    "uriMongodb": "mongodb+srv://platinum:platinum@platinum.wsdi2.mongodb.net/?retryWrites=true&w=majority&appName=platinum",
+    "type": "sqlite",
+    "uriMongodb": "",
     "autoSyncWhenStart": false,
     "autoRefreshThreadInfoFirstTime": true,
     "notes": "(1) type selects 'json' or 'sqlite' or 'mongodb'. If you choose mongodb, enter uri connect mongodb in the uriMongodb section, instructions to get uri connect mongodb at: https://youtu.be/z1f9urHW5xY. I recommend using 'mongodb' or 'sqlite', json is not recommended because it is not stable. (2) when you set autoSyncWhenStart to true, the bot will automatically synchronize the data in the database when starting the bot, this will make the bot start slower. (3) when you set autoRefreshThreadInfoFirstTime to true, the bot will automatically refresh the thread information when get first message from the thread since starting the bot"
@@ -138,7 +138,7 @@
     "updatePresence": true,
     "listenTyping": true,
     "logLevel": "error",
-    "selfListen": true,
+    "selfListen": false,
     "selfListenEvent": true,
     "autoMarkDelivery": false,
     "autoReconnect": false,
